@@ -1,0 +1,50 @@
+{
+  "cortex-debug.enableTelemetry": false,
+  "cortex-debug.armToolchainPath": "/opt/homebrew/bin/",
+  "cortex-debug.variableUseNaturalFormat": true,
+
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "files.associations": {
+    "*.c": "c",
+    "*.h": "c",
+    "type_traits": "c",
+    "cstdlib": "c",
+    "array": "c",
+    "string_view": "c",
+    "initializer_list": "c",
+    "utility": "c",
+    "functional": "c",
+    "cmath": "c",
+    "random": "c",
+    "istream": "c",
+    "ostream": "c",
+    "tuple": "c",
+    "string": "c",
+    "cstddef": "c",
+    "system_error": "c",
+    "deque": "c",
+    "vector": "c",
+    "iterator": "c",
+    "*.tcc": "c",
+    "memory": "c",
+    "typeinfo": "c",
+    "ranges": "c",
+    "optional": "c"
+  },
+  "files.exclude": {
+      "**/*.o": false
+  },
+  "files.encoding": "utf8",
+  "files.autoGuessEncoding": true,
+
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "editor.rulers": [
+      120
+  ],
+  "editor.detectIndentation": false,
+  "C_Cpp.vcFormat.newLine.beforeElse": false,
+  "C_Cpp.default.compilerPath": "arm-none-eabi-gcc",
+}

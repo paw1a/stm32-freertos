@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "name": "STM32",
+            "includePath": [
+              "${workspaceFolder}/include",
+              "${workspaceFolder}/include/stm32f4xx/include",
+              "${workspaceFolder}/cmsis/include",
+              "${workspaceFolder}/freertos/include",
+              "${workspaceFolder}/freertos/cmsis-rtos2",
+              "${workspaceFolder}/freertos/portable/gcc/armcm4f",
+              "${workspaceFolder}/stm32f4xx-hal/include",
+              "${workspaceFolder}/stm32f4xx-hal/include/legacy"
+            ],
+            "defines": [
+                "DEBUG",
+                "STM32F407xx"
+            ],
+            "cStandard": "c99",
+            "intelliSenseMode": "gcc-arm"
+        }
+    ],
+    "version": 4
+}
