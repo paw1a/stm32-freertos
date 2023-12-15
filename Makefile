@@ -9,7 +9,6 @@ TARGET := build/firmware.elf
 LINKER_SCRIPT := linker.ld
 
 DEFFLAGS := -DDEBUG -DSTM32F407xx
-DEPFLAGS = -MT $@ -MMD -MP -MF $(subst .o,.d,$@)
 ASFLAGS = -msyntax=att --warn --fatal-warnings
 
 CFLAGS  = -I. \
@@ -51,8 +50,6 @@ SRCS += $(foreach DIR,$(SRC_DIRS),$(wildcard $(DIR)/*.s))
 SRCS += $(SRCS_EXTRA)
 OBJS := $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
--include $(shell find . -name "*.d")
-
 all: $(TARGET)
 
 $(TARGET): $(OBJS) $(LINKER_SCRIPT)
@@ -63,7 +60,7 @@ $(TARGET): $(OBJS) $(LINKER_SCRIPT)
 $(OBJ_DIR)/%.o: %.c
 	@echo "CC $<"
 	@mkdir -p $(@D)
-	@$(CC) -c $(CFLAGS) $(DEFFLAGS) $(INCLUDES) $(DEPFLAGS) -o $@ $<
+	@$(CC) -c $(CFLAGS) $(DEFFLAGS) $(INCLUDES) -o $@ $<
 
 $(OBJ_DIR)/%.o: %.s
 	@echo "AS $<"
