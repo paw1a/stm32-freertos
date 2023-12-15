@@ -98,6 +98,8 @@
 #define __noreturn __attribute__((noreturn))
 #define __ramfunc  __attribute__((long_call, section(".ramfunc")))
 #define __weak     __attribute__((weak))
+#define __unused   __attribute__((unused))
+
 #endif // __GNUC__
 
 #if ((defined __GNUC__) && (CPU_CORE == ARM_CORTEX_M))

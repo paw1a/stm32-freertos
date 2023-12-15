@@ -4,7 +4,8 @@ LD      := $(TOOLCHAIN)ld
 AS      := $(TOOLCHAIN)as
 OBJCOPY := $(TOOLCHAIN)objcopy
 
-TARGET := build/firmware.elf
+BUILD_DIR = build
+TARGET := $(BUILD_DIR)/firmware.elf
 
 LINKER_SCRIPT := linker.ld
 
@@ -12,15 +13,15 @@ DEFFLAGS := -DDEBUG -DSTM32F407xx
 ASFLAGS = -msyntax=att --warn --fatal-warnings
 
 CFLAGS  = -I. \
-					-Wextra -Wno-sign-compare -Wpacked \
+					-Wall -Werror -Wextra -Wno-sign-compare -Wpacked \
 					-O0 -g -std=c11 -fno-strict-aliasing -fno-strict-overflow \
 					-Wno-main -ffunction-sections -fdata-sections -fwrapv \
 					--specs=nosys.specs  -mcpu=cortex-m4 -mfloat-abi=hard \
-					-mfpu=fpv4-sp-d16 \
+					-mfpu=fpv4-sp-d16 -Wno-unused-variable -Wno-unused-parameter \
 
 LDFLAGS = -nostartfiles -Wl,-static -Wl,--gc-sections \
 					-Wl,-cref -Wl,--print-memory-usage -Wl,-T,$(LINKER_SCRIPT) \
-					-Wl,-Map,build/memory.map \
+					-Wl,-Map,$(BUILD_DIR)/memory.map \
 
 INCLUDE_DIRS := include \
 								include/stm32f4xx/include \
@@ -38,12 +39,11 @@ SRC_DIRS := src \
 						include/stm32f4xx/src/gcc \
 						freertos \
 						freertos/cmsis-rtos2/src \
-						freertos/portable/common \
 						freertos/portable/gcc/armcm4f \
 
 SRCS_EXTRA := freertos/portable/mem/heap_5.c
 
-OBJ_DIR := build/obj
+OBJ_DIR := $(BUILD_DIR)/obj
 
 SRCS := $(foreach DIR,$(SRC_DIRS),$(wildcard $(DIR)/*.c))
 SRCS += $(foreach DIR,$(SRC_DIRS),$(wildcard $(DIR)/*.s))
@@ -70,14 +70,14 @@ $(OBJ_DIR)/%.o: %.s
 	@echo "OBJCOPY $@"
 	@$(OBJCOPY) -O binary $^ $@
 
-flash: build/firmware.bin
+flash: $(BUILD_DIR)/firmware.bin
 	st-flash --reset write $< 0x8000000
 
 format:
 	find . \( -name "*.c" -o -name "*.h" \) -exec clang-format -i {} \;
 
 clean:
-	rm -rf build
+	rm -rf $(BUILD_DIR)
 
 debug:
 	@echo $(OBJS)
